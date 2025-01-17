@@ -3,49 +3,63 @@ import { Image } from "astro:assets";
 import YmLogoOutline from "@assets/ym-logo-outline-w-text.svg";
 import YmLandscape from "@assets/illustration-landscape.svg";
 
-import { getImage } from "astro:assets"
-const optimizedBackgroundImage = await getImage({ src: YmLandscape })
+import { getImage } from "astro:assets";
+import Container from "./Container.astro";
+const optimizedBackgroundImage = await getImage({ src: YmLandscape });
 ---
 
 <footer class="bg-text-dark text-white py-6">
-    <div class="flex flex-row justify-between items-center px-4 gap-12">
-        <div class="flex flex-col justify-center items-center gap-4 grow-0 shrink mr-auto">
-            <a>
-                <Image src={YmLogoOutline} alt="Y Meadows Logo" height={100} width={100} />
-            </a>
-            <a> +1 (424) 270-6670 </a>
-            <a> info@ymeadows.com </a>
+    <Container>
+        <div class="flex flex-row justify-between items-center px-4 gap-12">
+            <div
+                class="flex flex-col justify-center items-center gap-4 grow-0 shrink mr-auto">
+                <a>
+                    <Image
+                        src={YmLogoOutline}
+                        alt="Y Meadows Logo"
+                        height={100}
+                        width={100}
+                    />
+                </a>
+                <a> +1 (424) 270-6670 </a>
+                <a> info@ymeadows.com </a>
+            </div>
+            <ul class="flex flex-row justify-between items-center gap-12">
+                <li>
+                    <h2 class="font-heading text-xl mb-4">Solution</h2>
+                    <ul>
+                        <li>How it works</li>
+                        <li>Enterprise Features</li>
+                        <li>Pricing</li>
+                        <li>Integration</li>
+                    </ul>
+                </li>
+                <li>
+                    <h2 class="font-heading text-xl mb-4">Solution</h2>
+                    <ul>
+                        <li>How it works</li>
+                        <li>Enterprise Features</li>
+                        <li>Pricing</li>
+                        <li>Integration</li>
+                    </ul>
+                </li>
+                <li></li>
+            </ul>
         </div>
-        <ul class="flex flex-row justify-between items-center gap-12">
-            <li>
-                <h2 class="font-heading text-xl mb-4">Solution</h2>
-                <ul>
-                    <li>How it works</li>
-                    <li>Enterprise Features</li>
-                    <li>Pricing</li>
-                    <li>Integration</li>
-                </ul>
-            </li>
-            <li>
-                <h2 class="font-heading text-xl mb-4">Solution</h2>
-                <ul>
-                    <li>How it works</li>
-                    <li>Enterprise Features</li>
-                    <li>Pricing</li>
-                    <li>Integration</li>
-                </ul>
-            </li>
-            <li></li>
-        </ul>
+    </Container>
+    <div
+        style={`background-image: url('${optimizedBackgroundImage.src}')`}
+        class=`bg-[50%] bg-repeat-x bg-[length:auto_100%] mt-4 h-16`>
     </div>
-    <div style={`background-image: url('${optimizedBackgroundImage.src}')`} class=`bg-[50%] bg-repeat-x bg-[length:auto_100%] mt-4 h-16` />
-    <div class="flex flex-row justify-between items-center mt-4 px-4">
-        <div>
-            <a>Disclosure</a>
-            <a>Privacy</a>
+    <Container>
+        <div class="flex flex-row justify-between items-center mt-4 px-4">
+            <div>
+                <a>Disclosure</a>
+                <a>Privacy</a>
+            </div>
+            <div>
+                © 2020-{new Date().getFullYear()} Y Meadows, Inc. All rights reserved.
+            </div>
         </div>
-        <div>
-            © 2020-{new Date().getFullYear()} Y Meadows, Inc. All rights reserved.
-        </div>
-    </div>
+    </Container>
 </footer>
