@@ -3,6 +3,7 @@ import { Picture } from "astro:assets";
 import heroImage from "assets/ym-logo.png";
 import Link from "@components/ui/Link.astro";
 //import { Icon } from "astro-icon/components";
+import * as m from "../paraglide/messages.js"
 ---
 
 <div class="relative isolate px-6 pt-14 lg:px-8">
@@ -36,7 +37,7 @@ import Link from "@components/ui/Link.astro";
             </h1>
             <p
                 class="mt-8 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8">
-                Instantly and precisely Triage, Enrich, Route, and Resolve common support requests at a fraction of the cost and time.
+                {m.homeHeroSubtitle()}
             </p>
             <div class="mt-10 flex items-center justify-center gap-x-6">
                 <a

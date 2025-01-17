@@ -1,0 +1,14 @@
+---
+import Hero from '@components/Hero.astro';
+import Layout from '../../layouts/Layout.astro';
+
+// Use this is you want to statically generate pages (output: 'server' in astro.config.mjs)
+import { availableLanguageTags } from '../../paraglide/runtime';
+export function getStaticPaths() {
+    return availableLanguageTags.map((lang) => ({ params: { lang } }));
+}
+---
+
+<Layout title="Home">
+    <Hero />
+</Layout>
