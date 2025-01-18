@@ -15,7 +15,6 @@ export const onRequest = defineMiddleware((context, next) => {
 
     // If changed
     if (lang !== languageTag()) {
-    console.log(322, context);
     setLanguageTag(lang as AvailableLanguageTag);
     // Redirect to lang changed or default (en)
     return context.redirect(`/${lang ?? 'en'}`);

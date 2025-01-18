@@ -1,6 +1,5 @@
 ---
 import Container from "@components/Container.astro";
-import Link from "@components/ui/Link.astro";
 import { Image } from "astro:assets";
 import {
     ArrowPathIcon,
@@ -12,9 +11,12 @@ import {
     XMarkIcon,
 } from "@heroicons/react/24/outline";
 import YmLogo from "@assets/ym-logo.png";
-import { languageTag } from '../paraglide/runtime';
+import { languageTag } from "../paraglide/runtime";
+import DropDown from "./ui/DropDown";
+import Button from "./ui/Button";
+import LanguagePicker from "./ui/LanguagePicker";
 
-const pathName = Astro.url.pathname.replace(`/${languageTag()}`, '');
+let pathName = Astro.url.pathname.replace(`/${languageTag()}`, "");
 
 const menuitems = [
     {
@@ -44,15 +46,19 @@ const menuitems = [
         path: "/contact",
     },
 ];
+
+const makeUrlForLanguage = (lang: string) =>
+    `/${lang}${Astro.url.pathname.replace(`/${languageTag()}`, "")}`;
 ---
 
 <Container>
-    <header class="flex flex-col md:flex-row justify-between items-center relative z-10">
+    <header
+        class="flex flex-col md:flex-row justify-between items-center relative z-10">
         <nav
             aria-label="Global"
             class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 w-full">
             <div class="flex lg:flex-1">
-                <a href="#" class="h-16">
+                <a href="/" class="h-16">
                     <span class="sr-only">Y Meadows</span>
                     <Image
                         class="min-h-16 min-w-64"
@@ -72,74 +78,78 @@ const menuitems = [
                     </button>
                 </div>
                 <div class="hidden lg:flex lg:gap-x-12">
-                    <a href="#" class="text-sm/6 font-semibold text-gray-900">
-                        Solutions
-                    </a>
-                    <a href="#" class="text-sm/6 font-semibold text-gray-900">
+                    <DropDown text="Solutions" client:visible>
+                        <ul class="flex flex-col gap-y-4 p-4">
+                            <li>
+                                <Button
+                                    className="text-sm/6 font-semibold text-gray-900"
+                                    href={`/${Astro.params.lang}/new`}
+                                    asLink={true}
+                                    variant="light"
+                                    client:visible>
+                                    How It Works
+                                </Button>
+                            </li>
+                            <li>
+                                <Button
+                                    className="text-sm/6 font-semibold text-gray-900"
+                                    href={`/${Astro.params.lang}/new`}
+                                    asLink={true}
+                                    variant="light"
+                                    client:visible>
+                                    Pricing
+                                </Button>
+                            </li>
+                            <li>
+                                <Button
+                                    className="text-sm/6 font-semibold text-gray-900"
+                                    href={`/${Astro.params.lang}/integrations`}
+                                    asLink={true}
+                                    variant="light"
+                                    client:visible>
+                                    Integrations
+                                </Button>
+                            </li>
+                        </ul>
+                    </DropDown>
+
+                    <Button
+                        className="text-sm/6 font-semibold text-gray-900"
+                        href={`/${Astro.params.lang}/new`}
+                        asLink={true}
+                        variant="light"
+                        client:visible>
                         Resources
-                    </a>
-                    <a href="#" class="text-sm/6 font-semibold text-gray-900">
+                    </Button>
+                    <Button
+                        className="text-sm/6 font-semibold text-gray-900"
+                        href={`/${Astro.params.lang}/posts`}
+                        asLink={true}
+                        variant="light"
+                        client:visible>
                         Blog
-                    </a>
-                    <a href="#" class="text-sm/6 font-semibold text-gray-900">
+                    </Button>
+                    <Button
+                        className="text-sm/6 font-semibold text-gray-900"
+                        href={`/${Astro.params.lang}/new`}
+                        asLink={true}
+                        variant="light"
+                        client:visible>
                         About
-                    </a>
-                    <ul>
-                        <li>
-                            <a href={`/fr/${pathName}`}>French</a>
-                        </li>
-                        <li>
-                            <a href={`/en/${pathName}`}>English</a>
-                        </li>
-                    </ul>
+                    </Button>
+
+                    <LanguagePicker lang={ Astro.params.lang } client:visible>
+                        <ul class="flex flex-col gap-y-4 p-4">
+                            <li>
+                                <a href={`${pathName ? '/fr'+pathName : '/fr'}`}>French</a>
+                            </li>
+                            <li>
+                                <a href={`${pathName ? '/en'+pathName: '/en'}`}>English</a>
+                            </li>
+                        </ul>
+                    </LanguagePicker>
                 </div>
             </div>
         </nav>
-        <!-- <div class="flex w-full md:w-auto items-center justify-between">
-            <a href="/" class="text-lg"
-                ><span class="font-bold text-slate-800">Astro</span><span
-                    class="text-slate-500">ship</span
-                >
-            </a>
-            <div class="block md:hidden">
-                <MenuIcon class="w-4 h-4 text-gray-800" />
-            </div>
-        </div> -->
-        <!-- <MenuItems class="hidden w-full md:w-auto mt-2 md:flex md:mt-0">
-        <ul class="flex flex-col md:flex-row md:gap-3">
-          {
-            menuitems.map((item, index) => (
-              <>
-                {item.children && (
-                  <Dropdown
-                    title={item.title}
-                    children={item.children}
-                    lastItem={index === menuitems.length - 1}
-                  />
-                )}
-
-                {!item.children && (
-                  <li>
-                    <a
-                      href={item.path}
-                      class="flex md:px-3 py-2 items-center text-gray-600 hover:text-gray-900">
-                      <span> {item.title}</span>
-                      {item.badge && (
-                        <span class="ml-1 px-2 py-0.5 text-[10px] animate-pulse font-semibold uppercase text-white bg-indigo-600 rounded-full">
-                          New
-                        </span>
-                      )}
-                    </a>
-                  </li>
-                )}
-              </>
-            ))
-          }
-        </ul>
-        <div class="md:hidden flex items-center mt-3 gap-4">
-          <Link href="#" style="muted" block size="md">Log in</Link>
-          <Link href="#" size="md" block>Sign up</Link>
-        </div>
-      </MenuItems> -->
     </header>
 </Container>
