@@ -1,0 +1,93 @@
+---
+import Button from "./ui/Button";
+
+const { currentPage, lastPage, prevUrl, nextUrl, firstUrl, lastUrl } =
+    Astro.props;
+
+const getPageNumbers = (current: number, last: number) => {
+    const range = [];
+    for (
+        let i = Math.max(1, current - 2);
+        i <= Math.min(last, current + 2);
+        i++
+    ) {
+        range.push(i);
+    }
+    return range;
+};
+
+const pageNumbers = getPageNumbers(currentPage, lastPage);
+const urlParam = Astro.url.pathname;
+const lang = Astro.currentLocale;
+
+console.log(pageNumbers);
+console.log(currentPage);
+---
+
+<div class="m-8 flex items-center justify-center space-x-3 gap-3">
+    {
+        firstUrl && currentPage > 1 && (
+            <Button
+                className="text-sm/6 font-semibold text-gray-900"
+                href={firstUrl}
+                asLink={true}
+                variant="light"
+                client:visible>
+                First
+            </Button>
+        )
+    }
+
+    {
+        urlParam !== `/${lang}/posts` && (
+            <Button
+                className="text-sm/6 font-semibold text-gray-900"
+                href={prevUrl}
+                asLink={true}
+                variant="light"
+                client:visible>
+                Previous
+            </Button>
+        )
+    }
+
+    {
+        pageNumbers.map((page) => (
+            <Button
+                className="text-sm/6 font-semibold text-gray-900"
+                href={page === 1 ? `/${lang}/posts` : `/${lang}/posts/${page}`}
+                asLink={true}
+                variant={page == currentPage ? "solid" : "light"}
+                color="primary"
+                client:visible>
+                {page}
+            </Button>
+        ))
+    }
+
+    {
+        nextUrl && (
+            <Button
+                className="text-sm/6 font-semibold text-gray-900"
+                href={nextUrl}
+                asLink={true}
+                variant="light"
+                client:visible>
+                Next
+            </Button>
+        )
+    }
+
+    {
+        lastUrl && currentPage < lastPage && (
+            <Button
+                className="text-sm/6 font-semibold text-gray-900"
+                href={lastUrl}
+                asLink={true}
+                variant="light"
+                client:visible>
+                Last
+            </Button>
+        )
+    }
+</div>

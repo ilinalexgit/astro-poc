@@ -1,0 +1,28 @@
+---
+import { Image } from "astro:assets";
+import BlogImage from "@assets/blog-img.jpg";
+import { PortableText } from "astro-portabletext";
+
+const { href, title, body } = Astro.props;
+---
+
+<div class="post">
+  {
+    <Image
+        class="rounded-lg"
+        src={BlogImage}
+        alt="Blog Image"
+        width={445}
+        height={230}
+    />
+  }
+  <h2 class="h3 mb-2 mt-4">
+    <a href={href} class="block hover:text-primary">
+      {title}
+    </a>
+  </h2>
+  {Array.isArray(body) && <PortableText value={body} />}
+  <a class="btn btn-primary mt-4" href={href} rel="">
+    Read More
+  </a>
+</div>
