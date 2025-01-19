@@ -7,6 +7,8 @@ import {
 
 export const onRequest = defineMiddleware((context, next) => {
 
+    return next();
+
     if (context.routePattern === '/_image') {
         return next();
     }
