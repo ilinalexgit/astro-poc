@@ -103,7 +103,7 @@ const makeUrlForLanguage = (lang: string) =>
                             <li>
                                 <Button
                                     className="text-sm/6 font-semibold text-gray-900"
-                                    href={`/${Astro.params.lang}/integrations`}
+                                    href={`/${Astro.params.lang}/new`}
                                     asLink={true}
                                     variant="light"
                                     client:visible>
@@ -115,11 +115,11 @@ const makeUrlForLanguage = (lang: string) =>
 
                     <Button
                         className="text-sm/6 font-semibold text-gray-900"
-                        href={`/${Astro.params.lang}/new`}
+                        href={`/${Astro.params.lang}/pricing`}
                         asLink={true}
                         variant="light"
                         client:visible>
-                        Resources
+                        Pricing
                     </Button>
                     <Button
                         className="text-sm/6 font-semibold text-gray-900"
